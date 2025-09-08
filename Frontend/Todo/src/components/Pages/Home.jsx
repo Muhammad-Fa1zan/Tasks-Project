@@ -10,7 +10,8 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await UserProfile().then((data) => setUser(data));
+       const res =  await UserProfile();
+        setUser(res);
       } catch (error) {
         navigate("/login");
         console.error("❌ Error fetching profile:", error.message);

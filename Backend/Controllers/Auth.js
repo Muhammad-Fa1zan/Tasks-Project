@@ -69,6 +69,19 @@ export const loginUser = async (req, res) => {
     res.json({ message: 'login successfull', userId: user._id, token });
 };
 
+export const UpdatePassword = async (req, res) => {
+    const user = await User.findById(req.user);
+    const { password } = req.body;
+    
+    if (!password) {
+        return res.status(400).json({ message: 'Password is required' });
+    };
+    user.password = password;
+    await user.save();
+    res.json({ message: 'Password changed successfully' });
+   
+};
+
 export const getProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user).select('-password')
